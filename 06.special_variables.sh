@@ -1,4 +1,5 @@
 #!/bin/bash
 
 #### Special Vars ####
-echo "All variables passed $@"
+echo "All variables passed to script: $@"
+echo "Number of variables passsed: $#"
