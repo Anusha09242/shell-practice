@@ -10,6 +10,6 @@ sleep 10
 
 ENDTIME=$(date +%s)
 
-TOTALTIME=$(($STARTTIME-$ENDTIME))
+TOTALTIME=$(($ENDTTIME-$STARTTIME))
 
-echo "The total time is $TOTALTIME seconds"
+echo "Script executed in $TOTALTIME seconds"
