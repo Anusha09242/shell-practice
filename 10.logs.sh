@@ -1,6 +1,8 @@
 #!/bin/bash
 
 USERID=$(id -u)
+LOGS_DIR=/home/ec2-user/shell-logs
+LOGS_FILE="$LOGS_DIR/$0.log"  #/home/ec2-user/shell-logs/10.logs.sh
 
 #check root access or not
 if [ $USERID -ne 0 ]; then
@@ -18,22 +20,22 @@ VALIDATE(){
 }
 
 #echo "I am continuing"
-dnf list installed mysql
+dnf list installed mysql &>> LOGS_FILE
 
 if [ $? -eq 0 ]; then
     echo "MySQL is already installed... SKIPPING"
 else
     echo "Installing MySQL"
-    dnf install mysql -y
+    dnf install mysql -y &>> LOGS_FILE
     VALIDATE MySQL $?
 fi
 
-dnf list installed nginx
+dnf list installed nginx &>> LOGS_FILE
 
 if [ $? -eq 0 ]; then
     echo "nginx is already installed... SKIPPING"
 else
     echo "Installing nginx"
-    dnf install nginx -y
+    dnf install nginx -y &>> LOGS_FILE
     VALIDATE nginx $?
 fi
