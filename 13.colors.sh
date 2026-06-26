@@ -4,6 +4,10 @@ USERID=$(id -u)
 LOGS_DIR=/var/log/shell-script
 LOGS_FILE="$LOGS_DIR/$0.log"  #/home/ec2-user/shell-logs/10.logs.sh
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+R="\e[31m"
+G="\e[32m"
+Y="\e[33m"
+N="\e[0m"
 
 #check root access or not
 if [ $USERID -ne 0 ]; then
@@ -13,10 +17,10 @@ fi
 
 VALIDATE(){
     if [ $2 -ne 0 ]; then
-        echo "$TIMESTAMP [ERROR] Installing $1 is... FAILED" | tee -a $LOGS_FILE 
+        echo "$TIMESTAMP [ERROR] Installing $1 is... $R FAILED $N" | tee -a $LOGS_FILE 
         exit 1
     else
-        echo "$TIMESTAMP [INFO] Installing $1 is... SUCCESS" | tee -a $LOGS_FILE
+        echo "$TIMESTAMP [INFO] Installing $1 is... $G SUCCESS $N" | tee -a $LOGS_FILE
     fi
 }
 
@@ -28,6 +32,6 @@ do
         dnf install $package -y &>> $LOGS_FILE
         VALIDATE "Installing $package" $?
     else
-        echo "$TIMESTAMP [INFO] $package already installed... SKIPPING"
+        echo "$TIMESTAMP [INFO] $package already installed... $Y SKIPPING $N"
     fi
 done
