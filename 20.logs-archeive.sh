@@ -15,7 +15,7 @@ if [ ! -d $SOURCE_DIR ]; then
     exit 1
 fi
 
-if [! -d $DEST_DIR ]; then
+if [ ! -d $DEST_DIR ]; then
     echo "Destination directory: $DEST_DIR not exist"
     exit 1
 fi
@@ -31,3 +31,8 @@ while IFS= read -r FILE
 do
     echo "$FILE"
 done <<< "$FILES"
+
+TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
+ARCHIEVE_FILE="$DEST_DIR/logs-archieve-$TIMESTAMP.tar.gz"
+
+tar -czvf $ARCHIEVE_FILE $FILES
